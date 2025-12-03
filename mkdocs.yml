@@ -1,3 +1,2 @@
-site_name: Basic MkDocs Example Project
-theme:
-  name: readthedocs
+ theme:
+   name: material
