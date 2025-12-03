@@ -74,7 +74,7 @@ instructions = {
     "1011": SACC,
     "1100": AND,
     "1101": OR,
-    "1110": OUT
+    "1110": OUT,
     "1111": XOR
 }
 
