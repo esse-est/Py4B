@@ -10,16 +10,22 @@ def scriptloader(filepath:str,outputfilepath:str):
     variable_translation=[]
 
     instruction_translation = {
-        "add": "0000",
-        "min": "0001",
-        "and": "0010",
-        "orx": "0011",
-        "shl": "0100",
-        "shr": "0101",
-        "set": "1000",
-        "idl": "1011",
-        "brk": "1001",
-        "bif": "1101"
+        "add": "0000"
+        "sub": "0001"
+        "mul": "0010"
+        "div": "0011"
+        "shl": "0100"
+        "shr": "0101"
+        "idl": "0110"
+        "cop": "0111"
+        "nop": "1000"
+        "brk": "1001"
+        "bif": "1010"
+        "sac": "1011"
+        "and": "1100"
+        "orx": "1101"
+        "out": "1110"
+        "xor": "1111"
     }
 
     for i in lines:
