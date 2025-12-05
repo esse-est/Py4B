@@ -18,7 +18,7 @@ def scriptloader(filepath:str,outputfilepath:str):
         "shr": "0101",
         "idl": "0110",
         "cop": "0111",
-        "nop": "1000",
+        "msh": "1000",
         "brk": "1001",
         "bif": "1010",
         "sac": "1011",
@@ -36,22 +36,26 @@ def scriptloader(filepath:str,outputfilepath:str):
         
         if i[2].startswith("i("):
             i[2]=bin(int(i[2][2:-1]))[2:]
-
-        for y in i:
-            if not y.isnumeric() and y not in instruction_translation:
-                if y in variable_translation:
-                    i[i.index(y)]=f"0000{bin(variable_translation.index(y))[2:]}"[-4:]
-                elif i[0] == "set":
-                    variable_translation.append(y)
-                    i[i.index(y)]=f"0000{bin(variable_translation.index(y))[2:]}"[-4:]
-
+        elif i[1].startswith("i("):
+            i[1]=bin(int(i[1][2:-1]))[2:]
+        
+        if i[0] == "sac":
+            
+            if i[2] in variable_translation:
+                i[2]=bin(variable_translation.index(i[2]))[2:]
+            else:
+                variable_translation.append(i[2])
+                i[2]=f"000{bin(variable_translation.index(i[2]))[2:]}"[-4:]
+            
 
         if i[0] in instruction_translation:
             i[0]=instruction_translation[i[0]]
-
+        else:
+            print("instruction not found")
+            exit()
+        print(i)
         i=f"{i[0]}_{i[1]}_{i[2]}"
         compiled_lines.append(i)
-
 
     with open(outputfilepath,"w") as f:
         for l in compiled_lines:

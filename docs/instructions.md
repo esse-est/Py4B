@@ -2,14 +2,14 @@ Currently, there are a total of 16 different instructions present in Py4B. This 
 
 this list is: <br>
 ` add` - add two numbers <br>
-` sub` - subtract two number <br>
+` sub` - subtract two numbers <br>
 ` mul` - multiply two numbers <br>
 ` div` - divide two numbers <br>
 ` shl` - shift to the left by one bit <br>
 ` shr` - shift to the right by one bit <br>
 ` idl` - do nothing until user input <br>
 ` cop` - copy value at one address to the other <br>
-` nop` - nothing- no operation <br>
+` msh` - shift your MSHC to a1 <br>
 ` brk` - branch to provided address (index of lines of code, starting at 0) <br>
 ` bif` - brk only when a2 != "0000" <br>
 ` sac` - inserts the 4bits of a1 to a2 <br>

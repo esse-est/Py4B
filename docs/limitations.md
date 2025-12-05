@@ -5,6 +5,4 @@ this includes: <br>
  - maximum register amount of 16 <br>
  - maximum instruction amount of 16 <br>
 
-currently in the works is a multiple 4b address system to fix this problem. this would drastically scale capabilities, effectively giving each bit 2 more states. <br>
-
-a hypothetical 4bx2 array would have 256 items, 4bx3 1296, 4bx4 4096, etc etc. exponential scaling, and large numbers? in my 4b fake cpu?
+As a semi-bandaid solution to at least the register quanitity, memory cells are impelemented. Using `MSH` you can shift your memory cell to the given 4b address. each MSHC(memory shift cell) has 16 registers, resulting in a total of 256 registers. this is still on the low end, but signicantly more usable then the MSHC-less 16.
