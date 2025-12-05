@@ -1,7 +1,4 @@
 
-memory = {
-
-}
 def ADD(a1,a2):
     mem[a2]=(f"0000{bin(int(mem[a1],2)+int(mem[a2],2))[2:]}"[-4:])
 
