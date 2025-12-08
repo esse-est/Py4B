@@ -1,5 +1,6 @@
-
-
+import math
+letter_out=list(map(chr, range(97, 123)))
+cache="0000"
 def ADD(a1,a2):
     mem[mem_cell][a2]=(f"0000{bin(int(mem[mem_cell][a1],2)+int(mem[mem_cell][a2],2))[2:]}"[-4:])
 
@@ -10,13 +11,14 @@ def MUL(a1,a2):
     mem[mem_cell][a2]=(f"0000{bin(int(mem[mem_cell][a1],2)*int(mem[mem_cell][a2],2))[2:]}"[-4:])
 
 def DIV(a1,a2):
-    mem[mem_cell][a2]=(f"0000{bin(int(mem[mem_cell][a1],2)/int(mem[mem_cell][a2],2))[2:]}"[-4:])
+    print(mem[mem_cell])
+    mem[mem_cell][a2]=(f"0000{bin(int(mem[mem_cell][a1],2)//int(mem[mem_cell][a2],2))[2:]}"[-4:])
 
 def SL(a1,a2:None):
-    mem[mem_cell][a1]<<1
+    mem[mem_cell][a1]=mem[mem_cell][a1]<<1
 
 def SR(a1,a2:None):
-    mem[mem_cell][a1]>>1
+    mem[mem_cell][a1]=mem[mem_cell][a1]>>1
 
 def IDLE(a1,a2):
     input()
@@ -28,14 +30,12 @@ def MSH(a1,a2):
     global mem_cell
     mem_cell=a1
 
-def BR(a1,a2):
-    global loop_c
-    loop_c=bin(int(a1,2))
-
-def BRIF(a1,a2):
-    if mem[mem_cell][a2] != "0000":
-        BR(a1,"0000")
-
+def CPU(a1,a2):
+    global cache
+    mem[mem_cell][a1]=cache
+def CPS(a1,a2):
+    global cache
+    cache=mem[mem_cell][a1]
 def SACC(a1,a2):
     mem[mem_cell][a2]=a1
 
@@ -49,12 +49,14 @@ def XOR(a1,a2):
     mem[mem_cell][a2]=(f"0000{bin(int(mem[mem_cell][a1],2) ^ int(mem[mem_cell][a2],2))[2:]}"[-4:])
 
 def OUT(a1,a2):
-    if mem[mem_cell][a2] == "0000":
-        print(mem[mem_cell][a1])
-    elif mem[a2] == "0001":
-        print(bin(mem[mem_cell][a1]))
-    elif mem[mem_cell][a2] == "0010":
-        print(ord(bin(mem[mem_cell][a1])))
+    if a2 == "0000":
+        print(int(mem[mem_cell][a1],2),end="")
+    elif a2 == "0001":
+        print(mem[mem_cell][a1],end="")
+    elif a2 == "0010":
+        print(letter_out[int(mem[mem_cell][a1],2)-1],end="")
+    elif a2 == "1111":
+        print()
 
 mem_cell="0001"
 mem = {}
@@ -72,8 +74,8 @@ instructions = {
     "0110": IDLE,
     "0111": COP,
     "1000": MSH,
-    "1001": BR,
-    "1010": BRIF,
+    "1001": CPU,
+    "1010": CPS,
     "1011": SACC,
     "1100": AND,
     "1101": OR,
@@ -90,9 +92,8 @@ def run(instruction_order: list):
         if loop_c > len(instruction_order)-1:
             return False
         inst=instruction_order[loop_c].replace("_","")
-        print(inst)
+        
         instructions[inst[0:4]](inst[4:8],inst[8:12])
-        input()
         loop_c+=1
         # instruction i[0:4] 
         # address 1 i[4:8]
@@ -101,6 +102,7 @@ def run(instruction_order: list):
 
 
 with open("example_script.pyb4c","r") as f:
-    run(f.readlines())
-
-print(mem)
+    inst_formatted=[]
+    for l in f.readlines():
+        inst_formatted.append(l.replace("\n","").replace(" ",""))
+    run(inst_formatted)

@@ -19,8 +19,8 @@ def scriptloader(filepath:str,outputfilepath:str):
         "idl": "0110",
         "cop": "0111",
         "msh": "1000",
-        "brk": "1001",
-        "bif": "1010",
+        "cpu": "1001",
+        "cps": "1010",
         "sac": "1011",
         "and": "1100",
         "orx": "1101",
@@ -30,30 +30,39 @@ def scriptloader(filepath:str,outputfilepath:str):
 
     for i in lines:
         i=i.split(" ")
-        while len(i) < 3:
-            #add empty lines until at standard length
+
+        if len(i) < 3:
             i.append("0000")
+
+
         
         if i[2].startswith("i("):
-            i[2]=bin(int(i[2][2:-1]))[2:]
-        elif i[1].startswith("i("):
-            i[1]=bin(int(i[1][2:-1]))[2:]
+            i[2]=f"{bin(int((i[2]).replace("i(","").replace(")","")))}"[2:]
         
-        if i[0] == "sac":
+        if i[1].startswith("i("):
+            i[1]=f"{bin(int((i[1]).replace("i(","").replace(")","")))}"[2:]
+        
+        
+        if i[1] in variable_translation:
             
-            if i[2] in variable_translation:
-                i[2]=bin(variable_translation.index(i[2]))[2:]
-            else:
-                variable_translation.append(i[2])
-                i[2]=f"000{bin(variable_translation.index(i[2]))[2:]}"[-4:]
-            
-
+            i[1]=f"0000{f"{bin(variable_translation.index(i[1]))}"[2:]}"[-4:]
+        elif i[2].isalpha():
+            variable_translation.append(i[2])
+            i[2]=f"0000{f"{bin(variable_translation.index(i[2]))}"[2:]}"[-4:]        
+        if i[2] in variable_translation:
+            i[2]=f"0000{f"{bin(variable_translation.index(i[2]))}"[2:]}"[-4:]
+        elif i[2].isalpha():
+            variable_translation.append(i[2])
+            i[2]=f"0000{f"{bin(variable_translation.index(i[2]))}"[2:]}"[-4:]
+        
+        for x in range(1,len(i)-1):
+            while len(i[x]) < 4:
+                i[x]=f"0{i[x]}"
         if i[0] in instruction_translation:
             i[0]=instruction_translation[i[0]]
         else:
             print("instruction not found")
-            exit()
-        print(i)
+            #exit()
         i=f"{i[0]}_{i[1]}_{i[2]}"
         compiled_lines.append(i)
 

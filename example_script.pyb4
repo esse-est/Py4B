@@ -1,2 +1,37 @@
-sac i(14) pi
-sac i(12) ip
+# autocorrect cell :sob:
+# add
+# sub
+# mul
+# div
+# shl
+# shr
+# idl
+# cop
+# msh
+# cpu
+# cps
+# sac
+# and
+# orx
+# out
+# xor
+
+#extensive testing of system capabilities:
+
+
+sac act 0000
+sac perform 0000
+sac housing 0000
+sac lambda 0000
+sac foo 0000
+sac bar 0000
+sac zee 0000
+sac fyee 0000
+sac lint 0000
+sac crisp 0000
+sac lava 0000
+sac water 0000
+sac ice 0000
+sac ground 0000
+sac dirt 0000
+sac steam 0000
