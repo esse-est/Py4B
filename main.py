@@ -49,13 +49,13 @@ def XOR(a1,a2):
     mem[mem_cell][a2]=(f"0000{bin(int(mem[mem_cell][a1],2) ^ int(mem[mem_cell][a2],2))[2:]}"[-4:])
 
 def OUT(a1,a2):
-    if a2 == "0000":
+    if a2[1:] == "000":
         print(int(mem[mem_cell][a1],2),end="")
     elif a2 == "0001":
         print(mem[mem_cell][a1],end="")
     elif a2 == "0010":
         print(letter_out[int(mem[mem_cell][a1],2)-1],end="")
-    elif a2 == "1111":
+    if a2[0] == "1":
         print()
 
 mem_cell="0001"

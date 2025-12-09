@@ -37,18 +37,19 @@ def scriptloader(filepath:str,outputfilepath:str):
 
         
         if i[2].startswith("i("):
-            i[2]=f"{bin(int((i[2]).replace("i(","").replace(")","")))}"[2:]
+            i[2]=f"{bin(int((i[2]).replace("i(","").replace(")","")))}"[2:][-4:]
         
         if i[1].startswith("i("):
-            i[1]=f"{bin(int((i[1]).replace("i(","").replace(")","")))}"[2:]
+            i[1]=f"{bin(int((i[1]).replace("i(","").replace(")","")))}"[2:][-4]
         
         
         if i[1] in variable_translation:
             
             i[1]=f"0000{f"{bin(variable_translation.index(i[1]))}"[2:]}"[-4:]
-        elif i[2].isalpha():
-            variable_translation.append(i[2])
-            i[2]=f"0000{f"{bin(variable_translation.index(i[2]))}"[2:]}"[-4:]        
+        elif i[1].isalpha():
+            variable_translation.append(i[1])
+            i[1]=f"0000{f"{bin(variable_translation.index(i[1]))}"[2:]}"[-4:]        
+        
         if i[2] in variable_translation:
             i[2]=f"0000{f"{bin(variable_translation.index(i[2]))}"[2:]}"[-4:]
         elif i[2].isalpha():

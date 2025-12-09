@@ -19,19 +19,24 @@
 #extensive testing of system capabilities:
 
 
-sac act 0000
-sac perform 0000
-sac housing 0000
-sac lambda 0000
-sac foo 0000
-sac bar 0000
-sac zee 0000
-sac fyee 0000
-sac lint 0000
-sac crisp 0000
-sac lava 0000
-sac water 0000
-sac ice 0000
-sac ground 0000
-sac dirt 0000
-sac steam 0000
+sac 0010 bar
+sac 0111 foo
+
+#addition
+add foo bar
+out bar 1000
+#output 9
+
+idl 0000
+
+sac 0110 foo
+add foo bar
+out bar 1000
+#out 15 (max check)
+
+idl 0000
+
+sac 1111 foo
+sub bar foo
+out foo 1000
+#out 0 (min check)
